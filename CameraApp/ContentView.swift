@@ -11,7 +11,7 @@ struct ContentView: View {
             Text("Camera")
         }).sheet(isPresented: $isPresented) {
             CameraRepresentableView()
-        }
+        }.edgesIgnoringSafeArea(.all)
     }
 }
 
@@ -25,14 +25,14 @@ struct CameraRepresentableView: UIViewControllerRepresentable {
 }
 
 class ViewController : UIViewController, AVCaptureVideoDataOutputSampleBufferDelegate{
-    var cameraButtonPressed = false
+    var takePhoto = false
     let captureSession = AVCaptureSession()
     var previewLayer  : CALayer!
     var captureDevice : AVCaptureDevice!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        let button = UIButton(frame: CGRect(x: UIScreen.main.bounds.width/2 - 24, y: UIScreen.main.bounds.height - 150, width: 60, height: 60))
+        let button = UIButton(frame: CGRect(x: UIScreen.main.bounds.width/2 - 26, y: UIScreen.main.bounds.height - 150, width: 60, height: 60))
         button.backgroundColor = .orange
         button.addTarget(self, action: #selector(captureButtonPressed), for: .touchUpInside)
         button.layer.cornerRadius = 0.5 * button.bounds.size.width
@@ -80,14 +80,28 @@ class ViewController : UIViewController, AVCaptureVideoDataOutputSampleBufferDel
     }
     
     func captureOutput(_ output: AVCaptureOutput, didOutput sampleBuffer: CMSampleBuffer, from connection: AVCaptureConnection) {
-        if cameraButtonPressed {
-            cameraButtonPressed = false
-            print(sampleBuffer)
+        if takePhoto {
+            takePhoto = false
+            if let image = self.getImageFromSampleBuffer(buffer: sampleBuffer){
+                print(image.pngData()!)
+                //  make api calls here to store in database or passing to backend
+            }
         }
     }
     
+    func getImageFromSampleBuffer(buffer : CMSampleBuffer) -> UIImage? {
+        if let pixelBuffer = CMSampleBufferGetImageBuffer(buffer) {
+            let ciImage = CIImage(cvPixelBuffer: pixelBuffer)
+            let context = CIContext()
+            let imageRect = CGRect(x: 0, y: 0, width: CVPixelBufferGetWidth(pixelBuffer), height: CVPixelBufferGetHeight(pixelBuffer))
+            if let image = context.createCGImage(ciImage, from: imageRect){
+                return UIImage(cgImage: image, scale: UIScreen.main.scale, orientation: .right)
+            }
+        }
+        return nil
+    }
+    
     @objc func captureButtonPressed(){
-        cameraButtonPressed = true
-        
+        takePhoto = true
     }
 }
