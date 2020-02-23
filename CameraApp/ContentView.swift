@@ -4,6 +4,7 @@ import AVFoundation
 
 struct ContentView: View {
     @State var isPresented = false
+    
     var body: some View {
         Button(action: {
             self.isPresented = true
@@ -26,20 +27,39 @@ struct CameraRepresentableView: UIViewControllerRepresentable {
 
 class ViewController : UIViewController, AVCaptureVideoDataOutputSampleBufferDelegate{
     var takePhoto = false
+    var prevImageButton : UIButton!
     let captureSession = AVCaptureSession()
     var previewLayer  : CALayer!
     var captureDevice : AVCaptureDevice!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        let button = UIButton(frame: CGRect(x: UIScreen.main.bounds.width/2 - 26, y: UIScreen.main.bounds.height - 150, width: 60, height: 60))
-        button.backgroundColor = .orange
-        button.addTarget(self, action: #selector(captureButtonPressed), for: .touchUpInside)
-        button.layer.cornerRadius = 0.5 * button.bounds.size.width
-        button.clipsToBounds = true
+        
+        
+        let innerButton = UIButton(frame: CGRect(x: UIScreen.main.bounds.width/2 - 27, y: UIScreen.main.bounds.height - 130, width: 50, height: 50))
+        innerButton.backgroundColor = .orange
+        innerButton.addTarget(self, action: #selector(captureButtonPressed), for: .touchUpInside)
+        innerButton.layer.cornerRadius = 0.5 * innerButton.bounds.size.width
+        innerButton.clipsToBounds = true
         prepareCamera()
-        self.view.addSubview(button)
+        self.view.addSubview(innerButton)
+        
+        let outerButton = UIButton(frame: CGRect(x: UIScreen.main.bounds.width/2 - 34.5, y: UIScreen.main.bounds.height - 137, width: 65, height: 65))
+        outerButton.backgroundColor = .clear
+        outerButton.addTarget(self, action: #selector(captureButtonPressed), for: .touchUpInside)
+        outerButton.layer.cornerRadius = 0.5 * outerButton.bounds.size.width
+        outerButton.clipsToBounds = true
+        outerButton.layer.borderWidth = 3
+        outerButton.layer.borderColor = UIColor.white.cgColor
+        self.view.addSubview(outerButton)
+        
+        prevImageButton = UIButton(frame: CGRect(x: UIScreen.main.bounds.width - 80, y: UIScreen.main.bounds.height - 135, width: 65, height: 65))
+        prevImageButton.backgroundColor = .clear
+        prevImageButton.layer.cornerRadius = 0.5 * prevImageButton.bounds.size.width
+        prevImageButton.clipsToBounds = true
+        self.view.addSubview(prevImageButton)
     }
+    
     
     func prepareCamera(){
         captureSession.sessionPreset = AVCaptureSession.Preset.photo
@@ -60,9 +80,14 @@ class ViewController : UIViewController, AVCaptureVideoDataOutputSampleBufferDel
         
         if let previewLayer = AVCaptureVideoPreviewLayer(session: captureSession) as? AVCaptureVideoPreviewLayer{
             self.previewLayer = previewLayer
+            self.previewLayer.frame = UIScreen.main.bounds
+            previewLayer.videoGravity = AVLayerVideoGravity.resizeAspectFill
             self.view.layer.addSublayer(self.previewLayer)
-            self.previewLayer.frame = self.view.layer.frame
             captureSession.startRunning()
+            
+            /*previewLayer.videoGravity = .resizeAspectFill
+            view.layer.addSublayer(previewLayer)
+            previewLayer.frame = view.frame**/
             
             let dataOutput = AVCaptureVideoDataOutput()
             dataOutput.videoSettings = [((kCVPixelBufferPixelFormatTypeKey as NSString) as String):NSNumber(value: kCVPixelFormatType_32BGRA)]
@@ -84,6 +109,9 @@ class ViewController : UIViewController, AVCaptureVideoDataOutputSampleBufferDel
             takePhoto = false
             if let image = self.getImageFromSampleBuffer(buffer: sampleBuffer){
                 print(image.pngData()!)
+                DispatchQueue.main.async {
+                    self.prevImageButton.setImage(image, for: .normal)
+                }
                 //  make api calls here to store in database or passing to backend
             }
         }
