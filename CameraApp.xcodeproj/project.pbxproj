@@ -13,9 +13,11 @@
 		29F8FB6E2401533D0071367D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 29F8FB6D2401533D0071367D /* Assets.xcassets */; };
 		29F8FB712401533D0071367D /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 29F8FB702401533D0071367D /* Preview Assets.xcassets */; };
 		29F8FB742401533D0071367D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 29F8FB722401533D0071367D /* LaunchScreen.storyboard */; };
+		4857E2EADA349BF339555F1B /* Pods_CameraApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1022A1F92753F895F9AD8845 /* Pods_CameraApp.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1022A1F92753F895F9AD8845 /* Pods_CameraApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CameraApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		29F8FB642401533C0071367D /* CameraApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CameraApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		29F8FB672401533C0071367D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		29F8FB692401533C0071367D /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -24,6 +26,8 @@
 		29F8FB702401533D0071367D /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		29F8FB732401533D0071367D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		29F8FB752401533D0071367D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		344D0D6DE87CE0B1347BBC30 /* Pods-CameraApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CameraApp.release.xcconfig"; path = "Target Support Files/Pods-CameraApp/Pods-CameraApp.release.xcconfig"; sourceTree = "<group>"; };
+		91E0E1D421443D45A7ABB22D /* Pods-CameraApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CameraApp.debug.xcconfig"; path = "Target Support Files/Pods-CameraApp/Pods-CameraApp.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -31,17 +35,29 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4857E2EADA349BF339555F1B /* Pods_CameraApp.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		211EF0D194BB0890A5445142 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				91E0E1D421443D45A7ABB22D /* Pods-CameraApp.debug.xcconfig */,
+				344D0D6DE87CE0B1347BBC30 /* Pods-CameraApp.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
 		29F8FB5B2401533C0071367D = {
 			isa = PBXGroup;
 			children = (
 				29F8FB662401533C0071367D /* CameraApp */,
 				29F8FB652401533C0071367D /* Products */,
+				211EF0D194BB0890A5445142 /* Pods */,
+				D6960CE5EC0801A2EBC0E7BE /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -75,6 +91,14 @@
 			path = "Preview Content";
 			sourceTree = "<group>";
 		};
+		D6960CE5EC0801A2EBC0E7BE /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				1022A1F92753F895F9AD8845 /* Pods_CameraApp.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -82,6 +106,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 29F8FB782401533D0071367D /* Build configuration list for PBXNativeTarget "CameraApp" */;
 			buildPhases = (
+				10D3D150E73A77BB727D6B88 /* [CP] Check Pods Manifest.lock */,
 				29F8FB602401533C0071367D /* Sources */,
 				29F8FB612401533C0071367D /* Frameworks */,
 				29F8FB622401533C0071367D /* Resources */,
@@ -140,6 +165,31 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		10D3D150E73A77BB727D6B88 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-CameraApp-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		29F8FB602401533C0071367D /* Sources */ = {
@@ -282,6 +332,7 @@
 		};
 		29F8FB792401533D0071367D /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 91E0E1D421443D45A7ABB22D /* Pods-CameraApp.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -302,11 +353,12 @@
 		};
 		29F8FB7A2401533D0071367D /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 344D0D6DE87CE0B1347BBC30 /* Pods-CameraApp.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"CameraApp/Preview Content\"";
-				DEVELOPMENT_TEAM = 5QH429XV5J;
+				DEVELOPMENT_TEAM = M38GB4L3DH;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = CameraApp/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (

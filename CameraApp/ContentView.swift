@@ -108,7 +108,8 @@ class ViewController : UIViewController, AVCaptureVideoDataOutputSampleBufferDel
         if takePhoto {
             takePhoto = false
             if let image = self.getImageFromSampleBuffer(buffer: sampleBuffer){
-                print(image.pngData()!)
+                let jpegData = image.jpegData(compressionQuality: 1.0)
+                print(jpegData)
                 DispatchQueue.main.async {
                     self.prevImageButton.setImage(image, for: .normal)
                 }
